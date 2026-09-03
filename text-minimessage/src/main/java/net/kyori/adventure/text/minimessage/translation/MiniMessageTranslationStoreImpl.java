@@ -24,6 +24,7 @@
 package net.kyori.adventure.text.minimessage.translation;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import net.kyori.adventure.key.Key;
@@ -77,5 +78,10 @@ final class MiniMessageTranslationStoreImpl extends AbstractTranslationStore.Str
     public TriState hasAnyTranslations() {
       return MiniMessageTranslationStoreImpl.this.hasAnyTranslations();
     }
+  }
+
+  @Override
+  public List<Component> group(TranslatableComponent component, Locale locale) {
+    return this.translator.group(component, locale);
   }
 }

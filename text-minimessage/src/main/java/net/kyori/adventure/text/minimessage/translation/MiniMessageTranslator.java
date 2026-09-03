@@ -128,7 +128,7 @@ public abstract class MiniMessageTranslator implements Translator {
    * {@link TranslatableComponent#fallback() translatable component's fallback} (or the
    * key itself).</p>
    *
-   * @param key the key
+   * @param key    the key
    * @param locale the locale
    * @return the resulting MiniMessage string
    * @since 4.20.0
@@ -206,5 +206,21 @@ public abstract class MiniMessageTranslator implements Translator {
     }
 
     return resultingComponent.append(component.children());
+  }
+
+  public final List<Component> group(final TranslatableComponent component, final Locale locale) {
+    final List<Component> result = new ArrayList<>();
+    final String key = component.key();
+
+    for (int index = 1; ; index++) {
+      final TranslatableComponent indexed = component.key(key + "." + index);
+      final Component translated = this.translate(indexed, locale);
+
+      if (translated == null) {
+        break;
+      }
+      result.add(translated);
+    }
+    return List.copyOf(result);
   }
 }

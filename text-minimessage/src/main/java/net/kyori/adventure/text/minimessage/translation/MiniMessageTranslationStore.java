@@ -24,8 +24,13 @@
 package net.kyori.adventure.text.minimessage.translation;
 
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.translation.TranslationStore;
+import org.jetbrains.annotations.UnmodifiableView;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A MiniMessage translation store.
@@ -51,7 +56,7 @@ public sealed interface MiniMessageTranslationStore extends TranslationStore.Str
   /**
    * Creates a MiniMessage translation store.
    *
-   * @param name the name of the translation store
+   * @param name        the name of the translation store
    * @param miniMessage the MiniMessage instance to use for deserialization
    * @return the translation store
    * @since 4.20.0
@@ -59,4 +64,7 @@ public sealed interface MiniMessageTranslationStore extends TranslationStore.Str
   static MiniMessageTranslationStore create(final Key name, final MiniMessage miniMessage) {
     return new MiniMessageTranslationStoreImpl(name, miniMessage);
   }
+
+  @UnmodifiableView
+  List<Component> group(final TranslatableComponent component, final Locale locale);
 }
